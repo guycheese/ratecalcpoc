@@ -1,0 +1,78 @@
+<div class="md:flex md:justify-center">
+  <div
+    class="flex flex-col gap-2 items-center justify-center p-5 w-full md:w-1/3"
+  >
+    <div class="flex gap-1 items-start flex-col w-full">
+      <span class="flex justify-between w-full">
+        <label for="payrate">Pay Rate</label>
+        <p class="text-red-600">Pay rate too low</p>
+      </span>
+      <input
+        name="payrate"
+        [value]="payRate"
+        [(ngModel)]="payRate"
+        type="number"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="holidaypay">Holiday Pay</label>
+      <input name="holidaypay" [value]="holidayPay()" readonly type="number" />
+    </div>
+
+    <div class="flex items-center gap-10 w-full">
+      <label for="ssp" class="text-start">SSP</label>
+      <input type="checkbox" checked="yes" />
+    </div>
+
+    <div class="flex items-center gap-10 w-full">
+      <label for="overtime" class="text-start">Overtime</label>
+      <input type="checkbox" />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="marginpercentage">Margin %</label>
+      <input name="marginpercentage" type="number" />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="nationalinsurance">National Insurance</label>
+      <input
+        name="nationalinsurance"
+        [value]="nationalInsurance()"
+        readonly
+        type="number"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="pension">Pension</label>
+      <input name="pension" [value]="pension()" readonly type="number" />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="apprenticeshiplevy">Apprenticeship Levy</label>
+      <input
+        name="apprenticeshiplevy"
+        readonly
+        type="number"
+        [value]="apprentinceshipLevy()"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="totalcostofemployment">Total Cost of Employment</label>
+      <input name="totalcostofemployment" readonly type="number" />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="margin">Margin £</label>
+      <input name="margin" readonly type="number" />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="chargerateperhourplusvat">Charge Rate per Hour + VAT</label>
+      <input name="chargerateperhourplusvat" readonly type="number" />
+    </div>
+  </div>
+</div>

@@ -6,25 +6,20 @@
       <span class="input-label">
         <label for="payrate">Pay Rate</label>
         <p
-          *ngIf="payRate < baseData.nationalLivingWage"
+          *ngIf="payRate() < baseData.nationalLivingWage"
           class="text-red-600 text-xs lg:text-sm"
         >
           Pay rate too low
         </p>
       </span>
-      <input
-        name="payrate"
-        [value]="payRate"
-        [(ngModel)]="payRate"
-        type="number"
-      />
+      <input name="payrate" [(ngModel)]="payRate" type="number" />
     </div>
 
     <div class="input">
       <label for="holidaypay" class="input-label">Holidays Per Annum</label>
       <input
         name="holidaypay"
-        [value]="baseData.holidayPerAnum"
+        [(ngModel)]="baseData.holidayPerAnum"
         type="number"
       />
     </div>
@@ -33,7 +28,7 @@
       <label for="workinghours" class="input-label">Working Hours</label>
       <input
         name="workinghours"
-        [value]="baseData.workingHours"
+        [(ngModel)]="baseData.workingHours"
         type="number"
       />
     </div>
@@ -43,7 +38,7 @@
         <span class="input-label">
           <label for="marginpercentage">Margin %</label>
           <p
-            *ngIf="marginPercentage < baseData.minMargin"
+            *ngIf="marginPercentage() < baseData.minMargin"
             class="text-red-600 text-xs lg:text-sm"
           >
             Low
@@ -52,13 +47,19 @@
         <input
           name="marginpercentage"
           [(ngModel)]="marginPercentage"
+          (ngModelChange)="updateMarginPercentage($event)"
           type="number"
         />
       </div>
 
       <div class="flex gap-1 items-start flex-col w-full">
         <label for="margin" class="input-label">Margin £</label>
-        <input name="margin" [(ngModel)]="margin" type="number" />
+        <input
+          name="margin"
+          [(ngModel)]="margin"
+          (ngModelChange)="updateMargin($event)"
+          type="number"
+        />
       </div>
     </div>
 
@@ -66,7 +67,7 @@
       <label for="ssppercentage" class="input-label">SSP %</label>
       <input
         name="ssppercentage"
-        [value]="baseData.sspPercentage"
+        [(ngModel)]="baseData.sspPercentage"
         min="0"
         max="100"
         type="number"
@@ -77,10 +78,14 @@
       <div class="flex items-center gap-10 w-full">
         <span>
           <label for="ssp" class="text-start input-label">SSP</label>
-          <p class="text-sm opacity-50">£{{ ssp }}</p>
+          <p class="text-sm opacity-50">£{{ ssp() }}</p>
         </span>
         <label class="switch">
-          <input type="checkbox" [(ngModel)]="chargeSSP" checked="yes" />
+          <input
+            type="checkbox"
+            [(ngModel)]="chargeSSP"
+            (change)="updateMargin(chargeRate() - costOfEmployment())"
+          />
           <span class="slider round"></span>
         </label>
       </div>
@@ -90,11 +95,7 @@
           <label for="overtime" class="text-start input-label">Overtime</label>
         </span>
         <label class="switch">
-          <input
-            type="checkbox"
-            (change)="toggleSSP()"
-            [(ngModel)]="overtime"
-          />
+          <input type="checkbox" [(ngModel)]="overtime" />
           <span class="slider round"></span>
         </label>
       </div>
@@ -105,7 +106,7 @@
           <label for="holidaypay" class="font-bold">Holiday Pay</label>
           <input
             name="holidaypay"
-            [value]="holidayPay | currency : 'GBP'"
+            [value]="holidayPay() | currency : 'GBP'"
             readonly
             type="text"
           />
@@ -117,7 +118,7 @@
           >
           <input
             name="nationalinsurance"
-            [value]="nationalInsurance | currency : 'GBP'"
+            [value]="nationalInsurance() | currency : 'GBP'"
             readonly
             type="text"
           />
@@ -127,7 +128,7 @@
           <label for="pension" class="font-bold">Pension</label>
           <input
             name="pension"
-            [value]="pension | currency : 'GBP'"
+            [value]="pension() | currency : 'GBP'"
             readonly
             type="text"
           />
@@ -139,7 +140,7 @@
           >
           <input
             name="apprenticeshiplevy"
-            [value]="apprenticeshipLevy | currency : 'GBP'"
+            [value]="apprenticeshipLevy() | currency : 'GBP'"
             readonly
             type="text"
           />
@@ -151,7 +152,7 @@
           >
           <input
             name="totalcostofemployment"
-            [value]="costOfEmployment | currency : 'GBP'"
+            [value]="costOfEmployment() | currency : 'GBP'"
             readonly
             type="text"
           />
@@ -163,7 +164,7 @@
           >
           <input
             name="chargerateperhourplusvat"
-            [value]="chargeRate | currency : 'GBP'"
+            [value]="chargeRate() | currency : 'GBP'"
             readonly
             type="text"
           />

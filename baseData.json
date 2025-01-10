@@ -1,0 +1,11 @@
+{
+  "nationalLivingWage": 12.21,
+  "nicThreshold": 96.0,
+  "niPercentage": 15,
+  "workingHours": 40.0,
+  "holidayPerAnum": 28.0,
+  "pensionPercentage": 3,
+  "appLevyPercentage": 0.5,
+  "sspPercentage": 1,
+  "minMargin": 12
+}

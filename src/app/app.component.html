@@ -1,10 +1,51 @@
-<nav class="bg-png-primary-gradient min-h-16 flex items-center">
-  <div class="w-full flex justify-center">
-    <h1 class="text-png-navtitle-color text-2xl font-semibold">
-      Rate Calculator
-    </h1>
+<nav class="min-h-12 flex items-center py-5">
+  <div class="w-full flex px-7 justify-between content-end">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        [ngClass]="{
+          'stroke-blue-500': router.url === '/',
+          'stroke-black': router.url != '/'
+        }"
+        class="size-6 transition"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+        />
+      </svg>
+    </a>
+
+    <a href="/admin">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        [ngClass]="{
+          'stroke-blue-500': router.url === '/admin',
+          'stroke-black': router.url != '/admin'
+        }"
+        class="size-6 transition"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ja
+          d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+        />
+      </svg>
+    </a>
   </div>
 </nav>
-<main>
+<main class="p-1">
   <router-outlet />
 </main>

@@ -1,0 +1,88 @@
+<div class="md:flex md:justify-center">
+  <form
+    class="flex flex-col gap-2 items-center justify-center p-5 w-full md:w-1/3"
+    (ngSubmit)="saveBaseData()"
+  >
+    <div class="flex gap-1 items-start flex-col w-full">
+      <span class="flex justify-between w-full input-label">
+        <label for="nithreshold">NI Threshold</label>
+      </span>
+      <input
+        name="nithreshold"
+        type="number"
+        [(ngModel)]="baseData.nicThreshold"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="nip" class="input-label">NI%</label>
+      <input
+        name="nip"
+        type="number"
+        min="0"
+        max="100"
+        [(ngModel)]="baseData.niPercentage"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="pensionthreshold" class="input-label"
+        >Pension Threshold</label
+      >
+      <input
+        name="pensionthreshold"
+        type="number"
+        [(ngModel)]="baseData.pensionPercentage"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="pensionpercentage" class="input-label">Pension%</label>
+      <input
+        name="pensionpercentage"
+        type="number"
+        min="0"
+        max="100"
+        [(ngModel)]="baseData.pensionPercentage"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="applevypercentage" class="input-label">App Levy %</label>
+      <input
+        name="applevypercentage"
+        type="number"
+        min="0"
+        max="100"
+        [(ngModel)]="baseData.appLevyPercentage"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="minwage" class="input-label">Min Wage</label>
+      <input
+        name="minwage"
+        type="number"
+        [(ngModel)]="baseData.nationalLivingWage"
+      />
+    </div>
+
+    <div class="flex gap-1 items-start flex-col w-full">
+      <label for="minwage" class="input-label">Min %</label>
+      <input
+        name="minMargin"
+        min="0"
+        max="100"
+        type="number"
+        [(ngModel)]="baseData.minMargin"
+      />
+    </div>
+
+    <button
+      class="bg-png-primary-gradient my-7 px-7 py-3 text-white rounded-md"
+      type="submit"
+    >
+      Save
+    </button>
+  </form>
+</div>

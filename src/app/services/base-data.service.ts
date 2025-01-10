@@ -1,25 +1,22 @@
 import { Injectable } from '@angular/core';
+import baseDataJson from '../../../baseData.json';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BaseDataService {
-  nationalLivingWage = 12.21;
-  nicThreshold = 96.0;
-  workingWeek = 40.0;
-  workingTime = 28.0;
-  pension = 3.0 / 100;
-  ssp = 28.0;
-  constructor() {}
+  constructor() {
+    console.log(localStorage.getItem('baseData'));
+    if (localStorage.getItem('baseData') == null) {
+      localStorage.setItem('baseData', JSON.stringify(baseDataJson));
+    }
+  }
 
-  getBaseData(): BaseData {
-    return {
-      nationalLivingWage: this.nationalLivingWage,
-      nicThreshold: this.nicThreshold,
-      workingWeek: this.workingWeek,
-      workingTime: this.workingTime,
-      pension: this.pension,
-      ssp: this.ssp,
-    };
+  getBaseData(): BaseDataV2 {
+    return JSON.parse(localStorage.getItem('baseData') || '{}');
+  }
+
+  setBaseData(newData: BaseDataV2) {
+    localStorage.setItem('baseData', JSON.stringify(newData));
   }
 }

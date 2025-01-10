@@ -1,11 +1,16 @@
 <div class="md:flex md:justify-center">
   <div
-    class="flex flex-col gap-2 items-center justify-center p-5 w-full md:w-1/3"
+    class="flex flex-col gap-2 items-center justify-center p-5 w-full lg:w-1/3"
   >
-    <div class="flex gap-1 items-start flex-col w-full">
-      <span class="flex justify-between w-full">
+    <div class="input">
+      <span class="input-label">
         <label for="payrate">Pay Rate</label>
-        <p class="text-red-600">Pay rate too low</p>
+        <p
+          *ngIf="payRate < baseData.nationalLivingWage"
+          class="text-red-600 text-xs lg:text-sm"
+        >
+          Pay rate too low
+        </p>
       </span>
       <input
         name="payrate"
@@ -15,64 +20,155 @@
       />
     </div>
 
-    <div class="flex gap-1 items-start flex-col w-full">
-      <label for="holidaypay">Holiday Pay</label>
-      <input name="holidaypay" [value]="holidayPay()" readonly type="number" />
-    </div>
-
-    <div class="flex items-center gap-10 w-full">
-      <label for="ssp" class="text-start">SSP</label>
-      <input type="checkbox" checked="yes" />
-    </div>
-
-    <div class="flex items-center gap-10 w-full">
-      <label for="overtime" class="text-start">Overtime</label>
-      <input type="checkbox" />
-    </div>
-
-    <div class="flex gap-1 items-start flex-col w-full">
-      <label for="marginpercentage">Margin %</label>
-      <input name="marginpercentage" type="number" />
-    </div>
-
-    <div class="flex gap-1 items-start flex-col w-full">
-      <label for="nationalinsurance">National Insurance</label>
+    <div class="input">
+      <label for="holidaypay" class="input-label">Holidays Per Annum</label>
       <input
-        name="nationalinsurance"
-        [value]="nationalInsurance()"
-        readonly
+        name="holidaypay"
+        [value]="baseData.holidayPerAnum"
         type="number"
       />
     </div>
 
     <div class="flex gap-1 items-start flex-col w-full">
-      <label for="pension">Pension</label>
-      <input name="pension" [value]="pension()" readonly type="number" />
-    </div>
-
-    <div class="flex gap-1 items-start flex-col w-full">
-      <label for="apprenticeshiplevy">Apprenticeship Levy</label>
+      <label for="workinghours" class="input-label">Working Hours</label>
       <input
-        name="apprenticeshiplevy"
-        readonly
+        name="workinghours"
+        [value]="baseData.workingHours"
         type="number"
-        [value]="apprentinceshipLevy()"
       />
     </div>
 
-    <div class="flex gap-1 items-start flex-col w-full">
-      <label for="totalcostofemployment">Total Cost of Employment</label>
-      <input name="totalcostofemployment" readonly type="number" />
+    <div class="w-full gap-2 flex">
+      <div class="flex gap-1 items-start flex-col w-full">
+        <span class="input-label">
+          <label for="marginpercentage">Margin %</label>
+          <p
+            *ngIf="marginPercentage < baseData.minMargin"
+            class="text-red-600 text-xs lg:text-sm"
+          >
+            Low
+          </p>
+        </span>
+        <input
+          name="marginpercentage"
+          [(ngModel)]="marginPercentage"
+          type="number"
+        />
+      </div>
+
+      <div class="flex gap-1 items-start flex-col w-full">
+        <label for="margin" class="input-label">Margin £</label>
+        <input name="margin" [(ngModel)]="margin" type="number" />
+      </div>
     </div>
 
-    <div class="flex gap-1 items-start flex-col w-full">
-      <label for="margin">Margin £</label>
-      <input name="margin" readonly type="number" />
+    <div class="input">
+      <label for="ssppercentage" class="input-label">SSP %</label>
+      <input
+        name="ssppercentage"
+        [value]="baseData.sspPercentage"
+        min="0"
+        max="100"
+        type="number"
+      />
     </div>
 
-    <div class="flex gap-1 items-start flex-col w-full">
-      <label for="chargerateperhourplusvat">Charge Rate per Hour + VAT</label>
-      <input name="chargerateperhourplusvat" readonly type="number" />
+    <div class="flex justify-between w-full p-1">
+      <div class="flex items-center gap-10 w-full">
+        <span>
+          <label for="ssp" class="text-start input-label">SSP</label>
+          <p class="text-sm opacity-50">£{{ ssp }}</p>
+        </span>
+        <label class="switch">
+          <input type="checkbox" [(ngModel)]="chargeSSP" checked="yes" />
+          <span class="slider round"></span>
+        </label>
+      </div>
+
+      <div class="flex items-center gap-10 w-full">
+        <span>
+          <label for="overtime" class="text-start input-label">Overtime</label>
+        </span>
+        <label class="switch">
+          <input
+            type="checkbox"
+            (change)="toggleSSP()"
+            [(ngModel)]="overtime"
+          />
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div class="flex items-center justify-center bg-gray-200 rounded-md">
+      <div class="p-5 grid grid-cols-2 gap-2">
+        <div class="flex gap-1 items-start flex-col w-full">
+          <label for="holidaypay" class="font-bold">Holiday Pay</label>
+          <input
+            name="holidaypay"
+            [value]="holidayPay | currency : 'GBP'"
+            readonly
+            type="text"
+          />
+        </div>
+
+        <div class="flex gap-1 items-start flex-col w-full">
+          <label for="nationalinsurance" class="font-bold"
+            >National Insurance</label
+          >
+          <input
+            name="nationalinsurance"
+            [value]="nationalInsurance | currency : 'GBP'"
+            readonly
+            type="text"
+          />
+        </div>
+
+        <div class="flex gap-1 items-start flex-col w-full">
+          <label for="pension" class="font-bold">Pension</label>
+          <input
+            name="pension"
+            [value]="pension | currency : 'GBP'"
+            readonly
+            type="text"
+          />
+        </div>
+
+        <div class="flex gap-1 items-start flex-col w-full">
+          <label for="apprenticeshiplevy" class="font-bold"
+            >Apprenticeship Levy</label
+          >
+          <input
+            name="apprenticeshiplevy"
+            [value]="apprenticeshipLevy | currency : 'GBP'"
+            readonly
+            type="text"
+          />
+        </div>
+
+        <div class="flex gap-1 items-start flex-col w-full">
+          <label for="totalcostofemployment" class="font-bold"
+            >Total Cost of Employment</label
+          >
+          <input
+            name="totalcostofemployment"
+            [value]="costOfEmployment | currency : 'GBP'"
+            readonly
+            type="text"
+          />
+        </div>
+
+        <div class="flex gap-1 items-start border flex-col w-full">
+          <label for="chargerateperhourplusvat" class="font-bold"
+            >Charge Rate per Hour + VAT</label
+          >
+          <input
+            name="chargerateperhourplusvat"
+            [value]="chargeRate | currency : 'GBP'"
+            readonly
+            type="text"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>
